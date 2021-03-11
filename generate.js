@@ -1,6 +1,7 @@
+require("dotenv").config();
 const readlineSync = require('readline-sync')
 const Web3 = require('web3');
-const web3 = new Web3("https://mainnet.infura.io/v3/25e82bd834e6496a936737b6aceb0587");
+const web3 = new Web3(process.env.PROVIDER);
 
 const { uniqueNamesGenerator, adjectives, colors, animals } = require('unique-names-generator');
 const walletName = uniqueNamesGenerator({
@@ -10,7 +11,7 @@ const walletName = uniqueNamesGenerator({
 
 const low = require('lowdb')
 const FileSync = require('lowdb/adapters/FileSync')
-const adapter = new FileSync(walletName)
+const adapter = new FileSync("./wallets/"+walletName)
 const db = low(adapter)
 
 const fs = require("fs");
