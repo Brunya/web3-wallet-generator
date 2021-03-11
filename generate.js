@@ -9,12 +9,13 @@ const walletName = uniqueNamesGenerator({
   length: 2
 })+".json";
 
+const fs = require('fs');
+!fs.existsSync("wallets") && fs.mkdirSync("wallets");
+
 const low = require('lowdb')
 const FileSync = require('lowdb/adapters/FileSync')
 const adapter = new FileSync("./wallets/"+walletName)
 const db = low(adapter)
-
-const fs = require("fs");
 
 const pass = readlineSync.question('Password: ', {hideEchoBack: true});
 web3.eth.accounts.wallet.create(1, web3.utils.randomHex(32));
